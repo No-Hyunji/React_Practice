@@ -1,32 +1,39 @@
 <html>
-  <head>
-    <script
-      crossorigin
-      src="https://unpkg.com/react@16/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
-    ></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script>
-      const e = React.createElement;
 
-      class LikeButton extends React.Component {
-        constructor(props) {
-          super(props);
-        }
+<head>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+</head>
 
-        render() {
-          // 만들겠다
-          return e("button", null, "Like"); // <button>Like</button>
+<body>
+  <div id="root"></div>
+  <!-- 결과 : <div id="root"><button>Like</button></div> -->
+  <script>
+    // 태그를 만들어주는 함수
+    const e = React.createElement;
+
+    class LikeButton extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          liked: false,
         }
       }
-    </script>
-    <script>
-      ReactDOM.render(e(LikeButton), document.querySelector("#root"));
-    </script>
-  </body>
+
+      render() {
+        // <button onClick="() => {console.log("clicked");}">Like</button> 만들겠다
+        // button 속성 중 submit : 데이터를 전송하는 전송버튼
+        return e("button", {
+          onClick: () => { this.setState({ liked: true }) },
+          type: 'submit'
+        }, this.state.liked === true ? "Liked" : "Like");
+      }
+    }
+  </script>
+  <script>
+    // 실제로 붙이겠다
+    ReactDOM.render(e(LikeButton), document.querySelector("#root"));
+  </script>
+</body>
+
 </html>
