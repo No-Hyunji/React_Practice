@@ -3,12 +3,13 @@
 <head>
   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 
 <body>
   <div id="root"></div>
   <!-- 결과 : <div id="root"><button>Like</button></div> -->
-  <script>
+  <script type="text/babel">
     // 태그를 만들어주는 함수
     const e = React.createElement;
 
@@ -23,16 +24,19 @@
       render() {
         // <button onClick="() => {console.log("clicked");}">Like</button> 만들겠다
         // button 속성 중 submit : 데이터를 전송하는 전송버튼
-        return e("button", {
-          onClick: () => { this.setState({ liked: true }) },
-          type: 'submit'
-        }, this.state.liked === true ? "Liked" : "Like");
+        return <button type="submit" onClick={() => { this.setState({ liked: true }) }}>
+          {this.state.liked === true ? 'Liked' : 'Like'}
+
+        </button>
+        // JSX (JS + XML)
+        // XML 문법 엄격함
+        // <>컨텐츠</> 컨텐츠 부분에 중괄호로 감싸주면 자바스크립트를 쓸수가 있다
       }
     }
   </script>
-  <script>
+  <script type="text/babel">
     // 실제로 붙이겠다
-    ReactDOM.render(e(LikeButton), document.querySelector("#root"));
+    ReactDOM.render(<LikeButton />, document.querySelector("#root"));
   </script>
 </body>
 
